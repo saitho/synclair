@@ -1,0 +1,37 @@
+---
+kind: pipeline
+name: test
+type: docker
+trigger:
+  event:
+    - push
+steps:
+  - name: lint
+    image: saitho/buildenv:php-node
+    commands:
+      - "git config --global url.https://github.com/.insteadOf git@github.com:"
+      - npm install --ignore-scripts
+      - npx eslint . --ext .ts,.tsx
+
+---
+kind: pipeline
+name: publish
+type: docker
+depends_on:
+  - test
+trigger:
+  event:
+    - promote
+  target:
+    - release
+steps:
+  - name: release
+    image: saitho/buildenv:debian-nodegui
+    pull: always
+    privileged: true
+    environment:
+      GITEA_TOKEN:
+        from_secret: gitea_token
+    commands:
+      - npm --unsafe-perm=true install
+      - npx semantic-release

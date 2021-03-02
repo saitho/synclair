@@ -1,0 +1,82 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "(cd ./node_modules/@nodegui/nodegui && npm run build:addon) && (cd ./node_modules/nodegui-deb-builder && npm install && tsc)",
+    "build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p",
+    "start": "webpack && qode ./dist/index.js",
+    "debug": "webpack && qode --inspect ./dist/index.js",
+    "pack": "cp assets/images/appicon.png deploy/linux/status-updater/appicon.png && node ./node_modules/@nodegui/packer/dist/cli.js --pack dist",
+    "pack:deb": "node ./node_modules/nodegui-deb-builder/dist/build-deb.js",
+    "semantic-release": "semantic-release",
+    "prestart": "ts-appversion"
+  },
+  "dependencies": {
+    "@nodegui/nodegui": "^0.29.0",
+    "@nodegui/os-utils": "^1.1.2",
+    "@nodegui/qode": "^2.1.0",
+    "axios": "^0.21.1",
+    "client-oauth2": "^4.3.3",
+    "express": "^4.17.1",
+    "keytar": "^7.3.0",
+    "lodash.merge": "^4.6.2",
+    "mattermost-redux": "^5.32.0",
+    "node-fetch": "^2.6.1",
+    "node-notifier": "^9.0.0",
+    "open": "^7.4.0",
+    "winston": "^3.3.3",
+    "yaml": "^1.10.0",
+    "zoomapi": "^1.4.0"
+  },
+  "devDependencies": {
+    "@nodegui/packer": "^1.4.1",
+    "@saithodev/semantic-release-gitea": "^2.0.0",
+    "@saithodev/ts-appversion": "^2.2.0",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "@types/express": "^4.17.11",
+    "@types/lodash.merge": "^4.6.6",
+    "@types/node": "^13.13.41",
+    "@types/node-fetch": "^2.5.8",
+    "@types/node-notifier": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "eslint": "^7.19.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "file-loader": "^4.2.0",
+    "nodegui-deb-builder": "github:saitho/nodegui-deb-builder#master",
+    "semantic-release": "^17.3.7",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3",
+    "webpack": "^5.21.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "npx ts-appversion --set-version=${nextRelease.version} && sh ./.build/build.sh"
+        }
+      ],
+      [
+        "@saithodev/semantic-release-gitea",
+        {
+          "giteaUrl": "https://git.saitho.me",
+          "assets": [
+            {
+              "path": "status-updater.deb",
+              "label": "status-updater.deb"
+            }
+          ]
+        }
+      ]
+    ],
+    "branches": [
+      "master"
+    ]
+  }
+}

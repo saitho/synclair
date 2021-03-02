@@ -1,0 +1,9 @@
+Package: status-updater
+Version: 1.1.2
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 184320
+Maintainer: Mario Lubenka
+Description: Update your status on connected services simultaneously
