@@ -30,8 +30,8 @@ steps:
     pull: always
     privileged: true
     environment:
-      GITEA_TOKEN:
-        from_secret: gitea_token
+      GITHUB_TOKEN:
+        from_secret: github_token
     commands:
       - npm --unsafe-perm=true install
       - npx semantic-release

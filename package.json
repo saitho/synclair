@@ -29,9 +29,9 @@
   },
   "devDependencies": {
     "@nodegui/packer": "^1.4.1",
-    "@saithodev/semantic-release-gitea": "^2.0.0",
     "@saithodev/ts-appversion": "^2.2.0",
     "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/github": "^7.2.0",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/express": "^4.17.11",
@@ -62,18 +62,7 @@
           "prepareCmd": "npx ts-appversion --set-version=${nextRelease.version} && sh ./.build/build.sh"
         }
       ],
-      [
-        "@saithodev/semantic-release-gitea",
-        {
-          "giteaUrl": "https://git.saitho.me",
-          "assets": [
-            {
-              "path": "status-updater.deb",
-              "label": "status-updater.deb"
-            }
-          ]
-        }
-      ]
+      "@semantic-release/github"
     ],
     "branches": [
       "master"
