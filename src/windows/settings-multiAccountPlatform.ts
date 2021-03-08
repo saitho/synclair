@@ -9,8 +9,6 @@ import {
     QPushButton,
     QVariant,
     QWidget,
-    WidgetAttribute,
-    WidgetEventTypes
 } from "@nodegui/nodegui";
 import {SelectionBehavior, SelectionMode} from "@nodegui/nodegui/dist/lib/QtWidgets/QAbstractItemView";
 import {Account} from "../config";

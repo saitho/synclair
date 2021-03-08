@@ -9,7 +9,7 @@ import {
     QPushButton,
     QWidget, WidgetEventTypes
 } from "@nodegui/nodegui";
-import {Status, statusMap} from "../status";
+import {statusMap} from "../status";
 import {platforms} from "../services";
 import {resolveQIcon} from "../utils";
 import {Config, getConfigPath, readConfig} from "../config";

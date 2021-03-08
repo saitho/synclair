@@ -62,7 +62,7 @@ export class JwtForm<T extends Account> extends AccountForm<T> {
         saveButton.setText("Validate credentials and save")
         saveButton.addEventListener('clicked', async () => {
             const requiredFields: FormField[] = []
-            fields.forEach((field, name) => {
+            fields.forEach((field) => {
                 if (field.optional) {
                     return
                 }

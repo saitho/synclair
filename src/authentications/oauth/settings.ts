@@ -148,7 +148,7 @@ export class OAuthSettingsWindow<T extends OAuthAccount> extends ConfigMainWindo
                 .then(() => {
                     this.close()
                 })
-                .catch((error) => {
+                .catch(() => {
                     // todo: error
                 })
         })
