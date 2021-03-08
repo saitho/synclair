@@ -4,7 +4,7 @@ import YAML from 'yaml'
 import * as fs from "fs";
 
 export function getAppConfigDir(): string {
-    return path.resolve(os.homedir(), '.config', 'status-updater');
+    return path.resolve(os.homedir(), '.config', 'synclair');
 }
 
 export function getConfigPath(): string {

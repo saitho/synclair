@@ -2,12 +2,14 @@ import {
     AlignmentFlag,
     QAction,
     QGridLayout,
-    QLabel,
+    QLabel, QPushButton,
     QWidget,
     TextFormat
 } from "@nodegui/nodegui";
 import versions from "../_versions";
 import {AppWindow} from "./window";
+import {resolveQIcon} from "../utils";
+import open from "open";
 
 class AboutWindow extends AppWindow {
     constructor() {
@@ -22,16 +24,19 @@ class AboutWindow extends AppWindow {
         rootView.setLayout(grid)
 
         const text = new QLabel();
-        text.setText(`status-updater<br/>Version: <i>${versions.version} (${versions.gitCommitHash})</i>`);
+        text.setText(`Synclair status updater<br/>Version: <i>${versions.version} (${versions.gitCommitHash})</i>`);
         text.setTextFormat(TextFormat.RichText)
         text.setAlignment(AlignmentFlag.AlignCenter)
         grid.addWidget(text);
 
-        // const button = new QPushButton()
-        // button.setText('GitHub')
-        // // eslint-disable-next-line @typescript-eslint/no-var-requires
-        // button.setIcon(resolveQIcon(require('../../assets/images/github-logo.png')))
-        // grid.addWidget(button, 1)
+        const button = new QPushButton()
+        button.setText('GitHub')
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        button.setIcon(resolveQIcon(require('../../assets/images/github-logo.png')))
+        button.addEventListener('clicked', async () => {
+            await open('https://github.com/saitho/synclair')
+        })
+        grid.addWidget(button, 1)
 
         const text2 = new QLabel();
         text2.setText(`Copyright © 2021 by Mario Lubenka`)

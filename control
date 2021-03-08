@@ -1,5 +1,5 @@
-Package: status-updater
-Version: 1.1.2
+Package: synclair
+Version: 1.0.0
 Section: custom
 Priority: optional
 Architecture: all

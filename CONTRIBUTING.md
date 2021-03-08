@@ -23,4 +23,4 @@ npm run start
 docker run --rm -v `pwd`:/w -w /w saitho/buildenv:debian-nodegui ./.build/build.sh
 ```
 
-This builds a `status-updater.deb` file.
+This builds a `synclair.deb` file.

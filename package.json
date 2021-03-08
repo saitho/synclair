@@ -5,7 +5,7 @@
     "build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p",
     "start": "webpack && qode ./dist/index.js",
     "debug": "webpack && qode --inspect ./dist/index.js",
-    "pack": "cp assets/images/appicon.png deploy/linux/status-updater/appicon.png && node ./node_modules/@nodegui/packer/dist/cli.js --pack dist",
+    "pack": "cp assets/images/appicon.png deploy/linux/synclair/appicon.png && node ./node_modules/@nodegui/packer/dist/cli.js --pack dist",
     "pack:deb": "node ./node_modules/nodegui-deb-builder/dist/build-deb.js",
     "semantic-release": "semantic-release",
     "prestart": "ts-appversion"

@@ -32,7 +32,7 @@ module.exports = {
               name: "[name].[ext]"
             }
           }
-          // replace paths: /home/mario/Workspace/status-updater/node_modules/**/*.node => *,node
+          // replace paths: /home/mario/Workspace/synclair/node_modules/**/*.node => *,node
         ]
       }
     ]

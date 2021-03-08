@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=status-updater
-Exec=sh -c "LIBGL_ALWAYS_SOFTWARE=1 /usr/bin/status-updater"
+Name=synclair
+Exec=sh -c "LIBGL_ALWAYS_SOFTWARE=1 /usr/bin/synclair"
 Comment=Update your status on connected services simultaneously
 Terminal=false
 Icon=appicon

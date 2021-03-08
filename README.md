@@ -14,7 +14,7 @@
 
 The configuration file is stored at:
 
-* Ubuntu: `~/.config/status-updater/config.yml`
+* Ubuntu: `~/.config/synclair/config.yml`
 
 ```yaml
 ---
