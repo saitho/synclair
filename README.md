@@ -4,17 +4,23 @@
 ## Features
 
 * Set status in task bar will be applied to all connected services
+* Supported services
+  * Mattermost (multiple accounts)
+  * Zoom (one account)
 
-## Supported services
+## Screenshots
 
-* Mattermost (multiple accounts)
-* Zoom (one account)
+![Status update menu](docs/status-menu.png)
+![Settings window](docs/settings.png)
 
 ## Configuration file
 
 The configuration file is stored at:
 
 * Ubuntu: `~/.config/synclair/config.yml`
+
+It will contain store the global application settings, as well as basic account information like the Mattermost server or the username.
+The passwords are stored in the keystore of the respective operating system and are identified by the `account` field
 
 ```yaml
 ---
@@ -33,10 +39,3 @@ services:
     username: myusername
 ```
 
-The passwords are stored in the keystore of the respective operating system and are identified by the `account` field
-
-## Building
-
-```
-docker run --rm -u `id -u`:`id -g` --privileged -v `pwd`:/w -w /w saitho/buildenv:debian-nodegui ./.build/build.sh
-```

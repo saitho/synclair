@@ -20,7 +20,7 @@ npm run start
 ### Build distributable
 
 ```
-docker run --rm -v `pwd`:/w -w /w saitho/buildenv:debian-nodegui ./.build/build.sh
+docker run --rm -u `id -u`:`id -g` --privileged -v `pwd`:/w -w /w saitho/buildenv:debian-nodegui ./.build/build.sh
 ```
 
 This builds a `synclair.deb` file.
