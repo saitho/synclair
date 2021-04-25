@@ -18,6 +18,14 @@ export class OAuthForm<T extends Account> extends AccountForm<T> {
         this.authentication = authentication;
     }
 
+    getCurrentAccount(platform: Platform<T>): T|null {
+        const accounts = platform.getAccountRepository().findAll().filter((a) => a.authentication === "oauth2")
+        if (!accounts.length) {
+            return null
+        }
+        return accounts[0]
+    }
+
     getForm(platform: Platform<T>): QWidget {
         const oAuthServer = new OAuthServer<T>(platform, this.account)
 
@@ -42,7 +50,8 @@ export class OAuthForm<T extends Account> extends AccountForm<T> {
                 // Get account name
                 this.authentication.getAccountName(tmpAccount)
                     .then((userName) => {
-                        const account: T = platform.getAccount(this.authentication)
+                        // Update current account if found, else create new account
+                        const account: T = this.getCurrentAccount(platform) ?? platform.getAccount(this.authentication)
                         account.account = platform.id
                         account.username = userName
                         platform.getAccountRepository().update(account, tmpAccount, JSON.stringify(token.data)).then(() => {
@@ -76,10 +85,7 @@ export class OAuthForm<T extends Account> extends AccountForm<T> {
 
         const label2 = new QLabel()
         label2.setTextFormat(TextFormat.RichText)
-        const account = platform.getAccountRepository().findAll()[0] || {username: '-'}
-        if (account.authentication !== "oauth2") {
-            account.username = '-'
-        }
+        const account = this.getCurrentAccount(platform) || {username: '-'}
         label2.setText('Connected account: <i>' + account.username + '</i>')
         grid.addWidget(label2, 1, 0, 1, 2)
 
