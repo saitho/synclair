@@ -10,6 +10,14 @@
 * CMake (Ubuntu: `apt install cmake`)
 * GL (Ubuntu: `apt install libgl1-mesa-dev`)
 
+You may also want to try the Debian-based Docker image `saitho/buildenv:debian-nodegui` which has these requirements preinstalled.
+
+Also make sure to install the NPM packages:
+
+```
+npm install
+```
+
 ### Run application
 
 ```

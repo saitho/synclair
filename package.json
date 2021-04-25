@@ -62,11 +62,17 @@
           "prepareCmd": "npx ts-appversion --set-version=${nextRelease.version} && sh ./.build/build.sh"
         }
       ],
-      ["@semantic-release/github", {
-        "assets": [
-          {"path": "synclair.deb", "label": "for Ubuntu 18+/Debian 9+"}
-        ]
-      }]
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "synclair.deb",
+              "label": "for Ubuntu 18+/Debian 9+"
+            }
+          ]
+        }
+      ]
     ],
     "branches": [
       "master"
