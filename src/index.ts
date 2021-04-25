@@ -8,7 +8,7 @@ import EventEmitter from "events";
 import {settingsAction} from "./windows/settings";
 import {StatusHolder} from "./status";
 import {quitAction} from "./actions/quit";
-import {readConfig} from "./config";
+import {getConfigPath, readConfig} from "./config";
 import {platforms} from "./services";
 import {logger} from "./logger";
 import {aboutAction} from "./windows/about";
@@ -16,6 +16,7 @@ import notify from "node-notifier";
 
 const em = new EventEmitter();
 const config = readConfig()
+logger.debug(`Loaded config from "${getConfigPath()}"`)
 const statusHolder = new StatusHolder(em, config.settings.statusAfterLaunch, config.settings.updateStatusOnLaunch);
 
 function getMenu(): QMenu {
