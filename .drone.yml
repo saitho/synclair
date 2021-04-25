@@ -29,7 +29,6 @@ steps:
   - name: release
     image: saitho/buildenv:debian-nodegui
     pull: always
-    privileged: true
     environment:
       GITHUB_TOKEN:
         from_secret: github_token
