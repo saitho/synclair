@@ -45,6 +45,11 @@ export class OAuthForm<T extends Account> extends AccountForm<T> {
             em.addListener('oauth_granted', async (token: Token) => {
                 // Save token
                 const tmpAccount: T = {authentication: 'oauth2', username: 'OAuth', account: platform.id} as T
+                // --- START
+                // Remove this when the node module saves the expiry date as date
+                // @see https://github.com/mulesoft-labs/js-client-oauth2/issues/157#issuecomment-826320729
+                token.data.update_time = new Date().toString()
+                // --- END
                 await setPassword(tmpAccount.account, tmpAccount.username, JSON.stringify(token.data))
 
                 // Get account name

@@ -139,14 +139,33 @@ export class OAuthAuthentication<T extends OAuthAccount> extends Authentication<
     public async doOAuthRequest(account: T, method: Method, url: string, data: any = {}): Promise<AxiosResponse> {
         const tokenData = await getPassword(account.account, account.username) as string
         const client = (await this.getOAuthClient(account))
+        const parsedTokenData = JSON.parse(tokenData)
 
-        let token = new Token(client, JSON.parse(tokenData))
+        let token = new Token(client, parsedTokenData)
+
+        // --- START
+        // Update expiry date as the saved value is only in seconds
+        // Remove this when the node module saves the expiry date as date
+        // @see https://github.com/mulesoft-labs/js-client-oauth2/issues/157#issuecomment-826320729
+        if (parsedTokenData.update_time) {
+            const realExpiryData = new Date(parsedTokenData.update_time)
+            const expiresIn = parseInt(token.data.expires_in) || 0;
+            realExpiryData.setSeconds(realExpiryData.getSeconds() + expiresIn)
+            token.expiresIn(realExpiryData)
+        }
+        // --- END
 
         if (token.expired()) {
             token = await token.refresh()
+            // --- START
+            // Remove this when the node module saves the expiry date as date
+            // @see https://github.com/mulesoft-labs/js-client-oauth2/issues/157#issuecomment-826320729
+            token.data.update_time = new Date().toString()
+            // --- END
+
             // Save updated token
             await setPassword(account.account, account.username, JSON.stringify(token.data))
-            logger.info('OAuth2 token for platform ' + this.platform.id + ' (Account: ' + account.username + ') expired so it was updated.')
+            logger.info('OAuth2 token for platform ' + this.platform.id + ' (Account: ' + account.username + ') expired so it was renewed.')
         }
 
         return axios.request({
