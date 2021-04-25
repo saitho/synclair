@@ -4,6 +4,7 @@ name: test
 type: docker
 trigger:
   event:
+    - promote
     - push
 steps:
   - name: lint
